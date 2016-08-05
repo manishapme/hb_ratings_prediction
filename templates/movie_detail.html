@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Ratings Movie Details{% endblock %}
+{% block content %}
+
+    <h1>Movie Details</h1>
+    <p>Title: {{ movie.title }}</p>
+    <p>Release Date: {{ movie.released_at }}</p>
+    {% if movie.imdb_url  %}
+        <p><a href="{{ movie.imdb_url }}">Click to view at imdb.com</a></p>
+    {% endif %}
+    {% if session['user_id'] is defined %}
+        <form action='/rating' method='POST'>
+            <p>Select a rating between 1 - 5, with 5 being the best.</p>
+            <input type="radio" name='rating' value=1>1</input>
+            <input type="radio" name='rating' value=2>2</input>
+            <input type="radio" name='rating' value=3>3</input>
+            <input type="radio" name='rating' value=4>4</input>
+            <input type="radio" name='rating' value=5>5</input>
+            <input type="hidden" name='movie_id' value={{ movie.movie_id }}></input>
+            <input type="submit" value="Rate it!">
+        </form>
+    {% endif %}
+    <h3>Ratings</h3>
+    <table>
+        <tr><th>Rating</th></tr>
+        {% for rating in movie.ratings %}
+            <tr><td>{{ rating.score }}</td></tr>
+        {% endfor %}
+
+
+
+{% endblock %}

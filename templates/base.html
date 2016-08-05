@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Ratings{% endblock %}</title>
+</head>
+<body>
+    <p><a href='/'>Home</a></p>
+    {% if session['user_id'] is defined %}
+        <button><a href="/logout">Logout</a></button></br>
+    {% endif %}
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <hr>
+
+    {% block content %} put your content here {% endblock %}
+
+</body>
+</html>
